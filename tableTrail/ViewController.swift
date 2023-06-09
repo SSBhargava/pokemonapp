@@ -11,6 +11,7 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var pokemonTable: UITableView!
     let dataManager = PokemonModel()
+    var pokeImages = NSCache<NSString,UIImage>()
     var resultArray:[DataResult]? = [DataResult](){
         didSet {
             DispatchQueue.main.async {
@@ -34,7 +35,6 @@ class ViewController: UIViewController {
             if let result = response{
                 self.resultArray = result.results
             }
-            print(self.resultArray)
         }
     }
     
@@ -51,14 +51,20 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .default, reuseIdentifier: "Cell")
         var content  = cell.defaultContentConfiguration()
-        if let result = resultArray {
-            content.text = result[indexPath.row].name?.capitalized
+        if let result = resultArray, let pokename = result[indexPath.row].name {
+            content.text = pokename.capitalized
             content.secondaryText = result[indexPath.row].url
             content.imageProperties.maximumSize = CGSize(width: 50, height: 50)
-            dataManager.fetchPokeImage(pokeNo: indexPath.row) {res in
-                content.image = res
-                DispatchQueue.main.async {
-                    cell.contentConfiguration = content
+            if let cached = pokeImages.object(forKey: NSString(string: pokename)) {
+                content.image = cached
+                cell.contentConfiguration = content
+            } else {
+                dataManager.fetchPokeImage(pokeNo: indexPath.row) {res in
+                    content.image = res
+                    DispatchQueue.main.async {
+                        self.pokeImages.setObject(res, forKey: NSString(string: pokename))
+                        cell.contentConfiguration = content
+                    }
                 }
             }
         }

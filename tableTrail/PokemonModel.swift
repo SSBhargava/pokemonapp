@@ -33,9 +33,7 @@ class PokemonModel {
     
     func fetchPokeList(completionHandler: @escaping (Pokemon?)-> Void) {
         let request = URLRequest(url: urlPoke!)
-       // request.httpMethod = "GET"
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
-           // print("ggg", data, response, error)
             if let res = data {
                 do{
                     let serial = try JSONDecoder().decode(Pokemon.self, from: res)
@@ -56,9 +54,7 @@ class PokemonModel {
         
         let task = URLSession.shared.dataTask(with: request)
         { dat, resp, err in
-            print(resp, dat)
             if let img = dat {
-                print("this image \(pokeNo)",UIImage(data: img))
                 compHan(UIImage(data: img) ?? UIImage())
             }
         }
