@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7DA21D1E2A332D11008B4D3D /* pokeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA21D1D2A332D11008B4D3D /* pokeViewModel.swift */; };
 		8A707DAB29E81728001DF47F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A707DAA29E81728001DF47F /* AppDelegate.swift */; };
 		8A707DAD29E81728001DF47F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A707DAC29E81728001DF47F /* SceneDelegate.swift */; };
 		8A707DAF29E81728001DF47F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A707DAE29E81728001DF47F /* ViewController.swift */; };
@@ -20,6 +21,7 @@
 
 /* Begin PBXFileReference section */
 		32763751F965237F2A73B47B /* Pods-tableTrail.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tableTrail.release.xcconfig"; path = "Target Support Files/Pods-tableTrail/Pods-tableTrail.release.xcconfig"; sourceTree = "<group>"; };
+		7DA21D1D2A332D11008B4D3D /* pokeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pokeViewModel.swift; sourceTree = "<group>"; };
 		8A707DA729E81728001DF47F /* tableTrail.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tableTrail.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A707DAA29E81728001DF47F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8A707DAC29E81728001DF47F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 				8A707DAA29E81728001DF47F /* AppDelegate.swift */,
 				8A707DAC29E81728001DF47F /* SceneDelegate.swift */,
 				8A707DAE29E81728001DF47F /* ViewController.swift */,
+				7DA21D1D2A332D11008B4D3D /* pokeViewModel.swift */,
 				8A8CF7DB29F68F500026D2E1 /* PokemonModel.swift */,
 				8A707DC029E81C60001DF47F /* DetailsViewController.swift */,
 				8A707DB029E81728001DF47F /* Main.storyboard */,
@@ -219,6 +222,7 @@
 				8A707DAD29E81728001DF47F /* SceneDelegate.swift in Sources */,
 				8A707DC129E81C60001DF47F /* DetailsViewController.swift in Sources */,
 				8A8CF7DC29F68F500026D2E1 /* PokemonModel.swift in Sources */,
+				7DA21D1E2A332D11008B4D3D /* pokeViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
