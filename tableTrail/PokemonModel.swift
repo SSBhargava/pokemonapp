@@ -22,7 +22,12 @@ struct DataResult: Codable {
     var url: String?
 }
 
-class PokemonModel {
+protocol pokeModelProtocol {
+    func fetchPokeList(completionHandler: @escaping (Pokemon?)-> Void)
+    func fetchPokeImage(pokeNo:Int ,compHan: @escaping (UIImage)->Void )
+}
+
+class PokemonModel: pokeModelProtocol {
     let urlPoke = URL(string: "https://pokeapi.co/api/v2/pokemon?limit=1000&offset=0")
     var pokeImage = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png")
     var pokeNo: Int? = 1 {
@@ -33,7 +38,9 @@ class PokemonModel {
     
     func fetchPokeList(completionHandler: @escaping (Pokemon?)-> Void) {
         let request = URLRequest(url: urlPoke!)
+       // request.httpMethod = "GET"
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
+           // print("ggg", data, response, error)
             if let res = data {
                 do{
                     let serial = try JSONDecoder().decode(Pokemon.self, from: res)
@@ -54,8 +61,12 @@ class PokemonModel {
         
         let task = URLSession.shared.dataTask(with: request)
         { dat, resp, err in
-            if let img = dat {
-                compHan(UIImage(data: img) ?? UIImage())
+            DispatchQueue.main.async {
+                if let img = dat {
+   
+                    //                print("this image \(pokeNo)",UIImage(data: img))
+                    compHan(UIImage(data: img) ?? UIImage())
+                }
             }
         }
         task.resume()
