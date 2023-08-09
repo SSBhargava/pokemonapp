@@ -12,17 +12,21 @@ class ViewController: UIViewController {
     @IBOutlet weak var pokemonTable: UITableView!
     
     var viewmodel: PokeViewModelProtocol!
+    var image: UIImage! {
+        didSet{
+            self.pokemonTable.reloadData()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         viewmodel = PokeViewModel()
-//        viewmodel = goutmVM()
-        
         viewmodel.fetchPokemon()
-        viewmodel.reloadTableView! = {
+        viewmodel.reloadTableView = {
             [weak self] in
+            guard let weakSelf = self else { return }
             DispatchQueue.main.async {
-                self?.pokemonTable.reloadData()
+                weakSelf.pokemonTable.reloadData()
             }
         }
         title = "POKEMONs"
@@ -48,11 +52,14 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             content.text = result[indexPath.row].name?.capitalized
             content.secondaryText = result[indexPath.row].url
             content.imageProperties.maximumSize = CGSize(width: 50, height: 50)
-            content.image = viewmodel.fetchPokeImages(pokeNo: indexPath.row)
+            
+            viewmodel.fetchPokeImages(pokeNo: indexPath.row) { img in
                 DispatchQueue.main.async {
+                    content.image = img
                     cell.contentConfiguration = content
                 }
-//            }
+            }
+            cell.contentConfiguration = content
         }
         return cell
     }
@@ -60,10 +67,11 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)
         let detailVC =  storyboard?.instantiateViewController(withIdentifier: "detailsVC") as! DetailsViewController
-        if let content = cell?.contentView.subviews[0] as? UIImageView {
+        if let content = cell?.contentView.subviews[2] as? UIImageView {
             detailVC.image = content.image
         }
-//        detailVC.title = resultArray?[indexPath.row].name?.capitalized
+        
+        detailVC.title = viewmodel.resultArray?[indexPath.row].name?.capitalized
         
         navigationController?.pushViewController(detailVC, animated: true)
     }

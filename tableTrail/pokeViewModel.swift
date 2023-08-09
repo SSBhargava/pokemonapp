@@ -12,7 +12,7 @@ protocol PokeViewModelProtocol {
     var resultArray:[DataResult]? { get }
     var reloadTableView: (() -> Void)? {  get set }
     func fetchPokemon()
-    func fetchPokeImages(pokeNo: Int) -> UIImage
+    func fetchPokeImages(pokeNo: Int, imageData:@escaping ((UIImage) -> Void) )
     
 }
 
@@ -22,9 +22,12 @@ class PokeViewModel: PokeViewModelProtocol {
     
     var resultArray:[DataResult]? = [DataResult](){
         didSet {
+            print("inside result vm")
             reloadTableView?()
         }
     }
+
+    var pokeImages = NSCache<NSString,UIImage>()
     
     var model: pokeModelProtocol!
     
@@ -42,34 +45,11 @@ class PokeViewModel: PokeViewModelProtocol {
         }
     }
     
-    func fetchPokeImages(pokeNo: Int) -> UIImage {
+    func fetchPokeImages(pokeNo: Int, imageData: @escaping ((UIImage) -> Void) ) {
         model = PokemonModel()
-        var image = UIImage()
         self.model.fetchPokeImage(pokeNo: pokeNo) { Image in
-            image = Image
+            imageData(Image)
         }
-        print(image)
-        
-            return image
-        
-    }
-    
-}
-
-
-
-class goutmVM: PokeViewModelProtocol {
-    var reloadTableView: (() -> Void)?
-    
-    func fetchPokeImages(pokeNo: Int) -> UIImage {
-        return UIImage()
-    }
-    
-    var resultArray: [DataResult]?
-    
-    func fetchPokemon() {
-        // print("API poke is called")
-        resultArray?.append(DataResult(name: "gautami", url: "hahahahah"))
     }
     
 }

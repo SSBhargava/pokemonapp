@@ -55,19 +55,16 @@ class PokemonModel: pokeModelProtocol {
         task.resume()
     }
     
-    func fetchPokeImage(pokeNo:Int ,compHan: @escaping (UIImage)->Void ) {
+    func fetchPokeImage(pokeNo:Int ,compHan: @escaping (UIImage) -> Void ) {
         self.pokeNo = pokeNo + 1
         let request = URLRequest(url: pokeImage!)
         
         let task = URLSession.shared.dataTask(with: request)
         { dat, resp, err in
-            DispatchQueue.main.async {
                 if let img = dat {
-   
-                    //                print("this image \(pokeNo)",UIImage(data: img))
-                    compHan(UIImage(data: img) ?? UIImage())
+                    print("this image \(pokeNo)",UIImage(data: img))
+                    compHan(UIImage(data: img)!)
                 }
-            }
         }
         task.resume()
     }

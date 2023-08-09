@@ -1,9 +1,9 @@
 import UIKit
 import RxSwift
 
-var greeting = "Hello, playground"
-
-print("bhargav")
+//var greeting = "Hello, playground"
+//
+//print("bhargav")
 
 //func createRxObserver() {
 //    let r: Observable<Character> = Observable.create {
@@ -62,3 +62,50 @@ print("bhargav")
 //print(ne())
 
 // this is check
+
+//var raghu = {
+//    print("this is raghu")
+//}
+//
+//raghu()
+//
+//
+//var paramm = { string in print(string)}
+//paramm("rahghu")
+//var sqr = { num -> Int in
+//   return( num * num) }
+//print(sqr(20))
+//
+func math(num: Int, operation: (Int,Int,Int)->Int) -> Int {
+    
+    print(num)
+    print("asghdasgjkkahskd")
+    return operation(num,num,num)+operation(num,num,num)
+}
+//
+//print(math(num: 10,operation: sqr))
+//
+//print(math(num: 400){ x in x * x})
+//
+//print(math(num: 500){  $0 * $0})
+//
+//var sqrt1 = { num -> Int in num * num }
+//
+//print(sqrt1(10))
+
+math(num: 20) { $0 * $1 * $2 }
+
+math(num: 40) { a, b, c in
+    return a+b+c
+}
+
+math(num: 5) { a, b, c in
+    return a*b*c
+}
+
+
+math(num: 25, operation: {a,b,c in return a*b*c})
+
+math(num: 25) { a,b,c in
+    return a+b*c
+}
